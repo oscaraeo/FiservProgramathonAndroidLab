@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.trainingapp.R;
+import com.example.trainingapp.data.User;
+import com.example.trainingapp.data.UserDataProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,8 +15,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class ViewUserActivity extends AppCompatActivity {
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +29,8 @@ public class ViewUserActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Log.d("ViewUserActivity", "Scrolling Activity was just created");
+        user = UserDataProvider.getSingletonInstance().getUsers().get(0);
+        loadUserData();
 
         final ViewUserActivity activity = this;
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -54,5 +62,14 @@ public class ViewUserActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadUserData() {
+        TextView firstName = findViewById(R.id.view_user_first_name);
+        TextView lastName = findViewById(R.id.view_user_last_name);
+        TextView email = findViewById(R.id.view_user_email);
+        firstName.setText(user.getFirstName());
+        lastName.setText(user.getLastName());
+        email.setText(user.getEmail());
     }
 }
