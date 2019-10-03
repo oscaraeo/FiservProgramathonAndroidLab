@@ -1,5 +1,6 @@
 package com.example.trainingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,12 +24,13 @@ public class ViewUserActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Log.d("ViewUserActivity", "Scrolling Activity was just created");
 
+        final ViewUserActivity activity = this;
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent goToEditUser = new Intent(activity, EditUserActivity.class);
+                startActivity(goToEditUser);
             }
         });
     }
