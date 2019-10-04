@@ -22,4 +22,15 @@ public class UserTableAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return 0;
     }
+
+    public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public UserViewHolder(View itemView, UserTableAdapter adapter) {
+            super(itemView);
+        }
+
+        @Override
+        public void onClick(View v) {
+
+        }
+    }
 }
