@@ -1,16 +1,32 @@
 package com.example.trainingapp;
 
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.trainingapp.data.User;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class UserTableAdapter extends RecyclerView.Adapter {
+    private LayoutInflater inflater;
+    private List<User> users;
+
+    public UserTableAdapter(Context context, List<User> users) {
+        inflater = LayoutInflater.from(context);
+        this.users = users;
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View itemView = inflater.inflate(R.layout.recycler_view_user_item, parent, false);
+        return new UserViewHolder(itemView, this);
     }
 
     @Override
