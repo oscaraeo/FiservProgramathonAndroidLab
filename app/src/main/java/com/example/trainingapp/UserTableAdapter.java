@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.trainingapp.data.User;
 
@@ -31,7 +32,9 @@ public class UserTableAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+        User user = users.get(position);
+        String userFullName = user.getFirstName() + " " + user.getLastName();
+        ((UserViewHolder)holder).userName.setText(userFullName);
     }
 
     @Override
@@ -40,8 +43,12 @@ public class UserTableAdapter extends RecyclerView.Adapter {
     }
 
     public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public UserViewHolder(View itemView, UserTableAdapter adapter) {
+        private TextView userName;
+
+        private UserViewHolder(View itemView, UserTableAdapter adapter) {
             super(itemView);
+            userName = itemView.findViewById(R.id.recycler_view_item_user_name);
+            userName.setOnClickListener(this);
         }
 
         @Override
