@@ -8,10 +8,72 @@
     tools:context=".activities.EditUserActivity"
     tools:showIn="@layout/activity_edit_user">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/sample_string" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/text_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/edit_user_label_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:text="@string/edit_user_first_name_label" />
+
+        <TextView
+            android:id="@+id/edit_user_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/text_margin"
+            android:text="@string/sample_string"
+            android:textColor="@android:color/black"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/edit_user_label_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:text="@string/edit_user_last_name_label" />
+
+        <TextView
+            android:id="@+id/edit_user_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/text_margin"
+            android:text="@string/sample_string"
+            android:textColor="@android:color/black"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/edit_user_label_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:text="@string/edit_user_email_label" />
+
+        <TextView
+            android:id="@+id/edit_user_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/text_margin"
+            android:text="@string/sample_string"
+            android:textColor="@android:color/black"
+            android:textSize="24sp" />
+
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
