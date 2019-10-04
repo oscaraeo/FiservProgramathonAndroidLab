@@ -8,6 +8,7 @@ import com.example.trainingapp.data.User;
 import com.example.trainingapp.data.UserDataProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -39,7 +40,7 @@ public class ViewUserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent goToEditUser = new Intent(activity, EditUserActivity.class);
                 goToEditUser.putExtra("INTENT_EXTRA_USER_ID", user.getId());
-                startActivity(goToEditUser);
+                startActivityForResult(goToEditUser, 510);
             }
         });
     }
@@ -72,5 +73,13 @@ public class ViewUserActivity extends AppCompatActivity {
         firstName.setText(user.getFirstName());
         lastName.setText(user.getLastName());
         email.setText(user.getEmail());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            loadUserData();
+        }
     }
 }

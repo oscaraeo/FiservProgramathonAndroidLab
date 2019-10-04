@@ -43,7 +43,7 @@ public class EditUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveUserData();
-                finish();
+                goBackAfterSave();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -59,5 +59,12 @@ public class EditUserActivity extends AppCompatActivity {
         user.setFirstName(firstName.getText().toString());
         user.setLastName(lastName.getText().toString());
         user.setEmail(email.getText().toString());
+    }
+
+    private void goBackAfterSave() {
+        Intent goBack = new Intent();
+        goBack.putExtra("INTENT_EXTRA_EDIT_USER_RESULT", "didEdit");
+        setResult(RESULT_OK, goBack);
+        finish();
     }
 }
