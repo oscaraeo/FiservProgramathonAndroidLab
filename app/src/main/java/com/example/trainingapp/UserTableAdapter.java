@@ -39,7 +39,7 @@ public class UserTableAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return users.size();
     }
 
     public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
