@@ -8,4 +8,9 @@
     tools:context=".activities.UserTableActivity"
     tools:showIn="@layout/activity_user_table">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/user_table_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
