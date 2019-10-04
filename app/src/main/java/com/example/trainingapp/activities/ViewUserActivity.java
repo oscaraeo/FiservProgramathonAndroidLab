@@ -38,6 +38,7 @@ public class ViewUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent goToEditUser = new Intent(activity, EditUserActivity.class);
+                goToEditUser.putExtra("INTENT_EXTRA_USER_ID", user.getId());
                 startActivity(goToEditUser);
             }
         });

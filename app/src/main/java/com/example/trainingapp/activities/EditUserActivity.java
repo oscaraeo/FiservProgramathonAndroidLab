@@ -1,8 +1,11 @@
 package com.example.trainingapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.trainingapp.R;
+import com.example.trainingapp.data.User;
+import com.example.trainingapp.data.UserDataProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -12,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 
 public class EditUserActivity extends AppCompatActivity {
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +23,9 @@ public class EditUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_user);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Intent intent = getIntent();
+        String userId = intent.getStringExtra("INTENT_EXTRA_USER_ID");
+        user = UserDataProvider.getSingletonInstance().getUserWithID(userId);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

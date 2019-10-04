@@ -27,4 +27,13 @@ public class UserDataProvider {
     public List<User> getUsers() {
         return users;
     }
+
+    public User getUserWithID(String userId) {
+        for (User user: users) {
+            if (user.getId().equals(userId)) {
+                return user;
+            }
+        }
+        return null;
+    }
 }
