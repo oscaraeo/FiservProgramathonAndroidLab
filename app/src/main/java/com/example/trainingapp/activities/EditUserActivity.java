@@ -18,6 +18,9 @@ import android.widget.TextView;
 
 public class EditUserActivity extends AppCompatActivity {
     private User user;
+    private EditText firstName;
+    private EditText lastName;
+    private EditText email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,9 @@ public class EditUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_user);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        firstName = findViewById(R.id.edit_user_first_name);
+        lastName = findViewById(R.id.edit_user_last_name);
+        email = findViewById(R.id.edit_user_email);
         Intent intent = getIntent();
         String userId = intent.getStringExtra("INTENT_EXTRA_USER_ID");
         user = UserDataProvider.getSingletonInstance().getUserWithID(userId);
@@ -36,19 +42,22 @@ public class EditUserActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                saveUserData();
+                finish();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void loadUserData() {
-        EditText firstName = findViewById(R.id.edit_user_first_name);
-        EditText lastName = findViewById(R.id.edit_user_last_name);
-        EditText email = findViewById(R.id.edit_user_email);
         firstName.setText(user.getFirstName());
         lastName.setText(user.getLastName());
         email.setText(user.getEmail());
+    }
+
+    private void saveUserData() {
+        user.setFirstName(firstName.getText().toString());
+        user.setLastName(lastName.getText().toString());
+        user.setEmail(email.getText().toString());
     }
 }
