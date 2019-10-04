@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class EditUserActivity extends AppCompatActivity {
@@ -43,9 +44,9 @@ public class EditUserActivity extends AppCompatActivity {
     }
 
     private void loadUserData() {
-        TextView firstName = findViewById(R.id.edit_user_first_name);
-        TextView lastName = findViewById(R.id.edit_user_last_name);
-        TextView email = findViewById(R.id.edit_user_email);
+        EditText firstName = findViewById(R.id.edit_user_first_name);
+        EditText lastName = findViewById(R.id.edit_user_last_name);
+        EditText email = findViewById(R.id.edit_user_email);
         firstName.setText(user.getFirstName());
         lastName.setText(user.getLastName());
         email.setText(user.getEmail());
