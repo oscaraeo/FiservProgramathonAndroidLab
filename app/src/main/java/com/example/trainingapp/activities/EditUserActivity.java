@@ -44,7 +44,6 @@ public class EditUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveUserData();
-                goBackAfterSave();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -82,6 +81,19 @@ public class EditUserActivity extends AppCompatActivity {
         user.setFirstName(firstName.getText().toString());
         user.setLastName(lastName.getText().toString());
         user.setEmail(email.getText().toString());
+        APIClient client = UserDataProvider.getApiClient();
+        Call<User> updateUser = client.updateUserWithID(user.getId(), user);
+        updateUser.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                goBackAfterSave();
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("EditUserActivity", "API call updateUser failed, set a breakpoint here to check the throwable's message");
+            }
+        });
     }
 
     private void goBackAfterSave() {

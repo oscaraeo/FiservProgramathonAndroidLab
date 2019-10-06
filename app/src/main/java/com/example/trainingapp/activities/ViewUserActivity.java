@@ -106,7 +106,7 @@ public class ViewUserActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            loadUserData();
+            downloadUserData();
         }
     }
 }
