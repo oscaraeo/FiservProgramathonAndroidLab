@@ -1,10 +1,17 @@
 package com.example.trainingapp.data;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
+    @SerializedName("id")
     private String id;
+    @SerializedName("first_name")
     private String firstName;
+    @SerializedName("last_name")
     private String lastName;
+    @SerializedName("email")
     private String email;
+    @SerializedName("avatar")
     private String avatar;
 
     public User(String id, String firstName, String lastName, String email, String avatar) {
