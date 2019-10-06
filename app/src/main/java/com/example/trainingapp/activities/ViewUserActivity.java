@@ -3,6 +3,7 @@ package com.example.trainingapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.trainingapp.DownloadImageAsyncTask;
 import com.example.trainingapp.R;
 import com.example.trainingapp.data.APIClient;
 import com.example.trainingapp.data.User;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ViewUserActivity extends AppCompatActivity {
@@ -95,6 +97,8 @@ public class ViewUserActivity extends AppCompatActivity {
         firstName.setText(user.getFirstName());
         lastName.setText(user.getLastName());
         email.setText(user.getEmail());
+        ImageView imageView = this.findViewById(R.id.view_user_avatar_imageView);
+        new DownloadImageAsyncTask(imageView).execute(user.getAvatar());
     }
 
     @Override
