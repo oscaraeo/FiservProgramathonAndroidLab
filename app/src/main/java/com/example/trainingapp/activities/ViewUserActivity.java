@@ -47,23 +47,7 @@ public class ViewUserActivity extends AppCompatActivity {
                 startActivityForResult(goToEditUser, 510);
             }
         });
-
-        Intent intent = getIntent();
-        String userId = intent.getStringExtra("USER_ID");
-        APIClient client = UserDataProvider.getApiClient();
-        Call<User> getUser = client.getUserWithID(userId);
-        getUser.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                user = response.body();
-                loadUserData();
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.d("ViewUserActivity", "API call getUser failed, set a breakpoint here to check the throwable's message");
-            }
-        });
+        downloadUserData();
     }
 
     @Override
@@ -85,6 +69,28 @@ public class ViewUserActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void downloadUserData() {
+        Intent intent = getIntent();
+        String userId = intent.getStringExtra("USER_ID");
+        if (userId == null) {
+            return; // if we did not get an identifier, don't even try to download
+        }
+        APIClient client = UserDataProvider.getApiClient();
+        Call<User> getUser = client.getUserWithID(userId);
+        getUser.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                user = response.body();
+                loadUserData();
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("ViewUserActivity", "API call getUser failed, set a breakpoint here to check the throwable's message");
+            }
+        });
     }
 
     private void loadUserData() {
