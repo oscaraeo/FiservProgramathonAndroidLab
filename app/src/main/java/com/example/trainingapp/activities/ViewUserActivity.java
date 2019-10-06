@@ -22,10 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.List;
-
 public class ViewUserActivity extends AppCompatActivity {
     private User user;
 
@@ -53,7 +49,7 @@ public class ViewUserActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_scrolling, menu);
+        getMenuInflater().inflate(R.menu.menu_view_user, menu);
         return true;
     }
 
@@ -63,9 +59,8 @@ public class ViewUserActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.view_user_menu_action_delete) {
+            deleteUser();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -108,5 +103,21 @@ public class ViewUserActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             downloadUserData();
         }
+    }
+
+    private void deleteUser() {
+        APIClient client = UserDataProvider.getApiClient();
+        Call<User> deleteUser = client.deleteUserWithID(user.getId());
+        deleteUser.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("ViewUserActivity", "API call deleteUser failed, set a breakpoint here to check the throwable's message");
+            }
+        });
     }
 }
