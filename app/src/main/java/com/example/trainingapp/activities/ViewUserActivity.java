@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.trainingapp.R;
+import com.example.trainingapp.data.APIClient;
 import com.example.trainingapp.data.User;
 import com.example.trainingapp.data.UserDataProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -11,6 +12,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import android.util.Log;
 import android.view.View;
@@ -19,6 +23,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
+
+import java.util.List;
 
 public class ViewUserActivity extends AppCompatActivity {
     private User user;
@@ -30,9 +36,7 @@ public class ViewUserActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Log.d("ViewUserActivity", "Scrolling Activity was just created");
-        user = UserDataProvider.getSingletonInstance().getUsers().get(0);
-        loadUserData();
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final ViewUserActivity activity = this;
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +45,23 @@ public class ViewUserActivity extends AppCompatActivity {
                 Intent goToEditUser = new Intent(activity, EditUserActivity.class);
                 goToEditUser.putExtra("INTENT_EXTRA_USER_ID", user.getId());
                 startActivityForResult(goToEditUser, 510);
+            }
+        });
+
+        Intent intent = getIntent();
+        String userId = intent.getStringExtra("USER_ID");
+        APIClient client = UserDataProvider.getApiClient();
+        Call<User> getUser = client.getUserWithID(userId);
+        getUser.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                user = response.body();
+                loadUserData();
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("ViewUserActivity", "API call getUser failed, set a breakpoint here to check the throwable's message");
             }
         });
     }
