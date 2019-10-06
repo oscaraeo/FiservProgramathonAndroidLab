@@ -1,9 +1,11 @@
 package com.example.trainingapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.trainingapp.R;
 import com.example.trainingapp.UserTableAdapter;
+import com.example.trainingapp.data.APIClient;
 import com.example.trainingapp.data.User;
 import com.example.trainingapp.data.UserDataProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -13,7 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+import android.util.Log;
 import android.view.View;
 
 import java.util.List;
@@ -40,10 +46,22 @@ public class UserTableActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        List<User> users = UserDataProvider.getSingletonInstance().getUsers();
         recyclerView = findViewById(R.id.user_table_recycler_view);
-        userTableAdapter = new UserTableAdapter(this, users);
-        recyclerView.setAdapter(userTableAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final UserTableActivity activity = this;
+        APIClient client = UserDataProvider.getApiClient();
+        Call<List<User>> getUsers = client.getAllUsers();
+        getUsers.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                userTableAdapter = new UserTableAdapter(activity, response.body());
+                recyclerView.setAdapter(userTableAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Log.d("UserTableActivity", "API call getUsers failed, set a breakpoint here to check the throwable's message");
+            }
+        });
     }
 }
