@@ -34,7 +34,8 @@ public class UserTableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_table);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setupRecyclerView();
+        recyclerView = findViewById(R.id.user_table_recycler_view);
+        loadRecyclerViewData();
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,8 +46,13 @@ public class UserTableActivity extends AppCompatActivity {
         });
     }
 
-    private void setupRecyclerView() {
-        recyclerView = findViewById(R.id.user_table_recycler_view);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadRecyclerViewData();
+    }
+
+    private void loadRecyclerViewData() {
         final UserTableActivity activity = this;
         APIClient client = UserDataProvider.getApiClient();
         Call<List<User>> getUsers = client.getAllUsers();
